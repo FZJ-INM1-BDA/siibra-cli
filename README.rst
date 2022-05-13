@@ -1,7 +1,7 @@
 |License| 
 
-Commandline client for siibra - Software toolsuite for interacting with brain atlases
-==============================================================
+siibra - Software toolsuite for interacting with brain atlases - commandline client
+===================================================================================
 
 Copyright 2020-2022, Forschungszentrum Jülich GmbH
 
