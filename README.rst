@@ -1,7 +1,7 @@
 |License| 
 
-siibra - Software toolsuite for interacting with brain atlases - commandline client
-===================================================================================
+siibracli - commandline client for interacting with brain atlases
+=================================================================
 
 Copyright 2020-2022, Forschungszentrum Jülich GmbH
 
