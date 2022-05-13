@@ -30,7 +30,6 @@ setup(
     packages=find_packages(include=["siibra_cli"]),
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Operating System :: OS Independent",
@@ -40,7 +39,7 @@ setup(
         [console_scripts]
         siibra=siibra_cli.cli:siibra
     """,
-    python_requires=">=3.6",
+    python_requires=">=3.7",
     install_requires=[
         "siibra>=0.3a16",
         "click>=8.0",
