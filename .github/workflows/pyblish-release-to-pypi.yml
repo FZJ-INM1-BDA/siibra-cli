@@ -42,4 +42,4 @@ jobs:
     - name: Upload to pypi
       run: |
         echo "Uploading to pypi"
-        python -m twine upload dist/*
+        python -m twine upload --verbose dist/*
