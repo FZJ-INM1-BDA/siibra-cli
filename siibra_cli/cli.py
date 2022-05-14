@@ -48,7 +48,7 @@ class ParcellationName(click.ParamType):
 # ---- Main command
 
 
-@with_plugins(iter_entry_points('siibra_cli.cli_plugins'))
+@with_plugins(iter_entry_points('siibra_cli.plugins'))
 @click.group()
 @click.pass_context
 @click.option(
@@ -58,7 +58,7 @@ class ParcellationName(click.ParamType):
     default="human",
     help="Species (human, rat, mouse)",
 )
-def siibra(ctx, species):
+def cli(ctx, species):
     """Command line interface to the siibra atlas toolsuite"""
     ctx.obj = {"species": species}
 
@@ -66,7 +66,7 @@ def siibra(ctx, species):
 # ---- download files
 
 
-@siibra.group()
+@cli.group()
 @click.option(
     "-o",
     "--outfile",
@@ -170,7 +170,7 @@ def ebrainstoken():
 # ---- Searching for things
 
 
-@siibra.group()
+@cli.group()
 @click.pass_context
 def find(ctx):
     """Find atlas concepts by name"""
@@ -281,7 +281,8 @@ def features(ctx, region, parcellation, match):
 # ---- Assign locations
 
 
-@siibra.group()
+@with_plugins(iter_entry_points('siibra_cli.assignment_plugins'))
+@cli.group()
 @click.pass_context
 def assign(ctx):
     """Assign spatial objects to brain regions"""

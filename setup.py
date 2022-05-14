@@ -37,7 +37,7 @@ setup(
     ],
     entry_points="""
         [console_scripts]
-        siibra=siibra_cli.cli:siibra
+        siibra=siibra_cli.cli:cli
     """,
     python_requires=">=3.7",
     install_requires=[
