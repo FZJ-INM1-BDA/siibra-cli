@@ -25,24 +25,28 @@ from siibra.retrieval.requests import SiibraHttpRequestError
 
 # ---- Autocompletion
 
+
 class SpaceName(click.ParamType):
     name = "space"
+
     def shell_complete(self, ctx, param, incomplete):
         print(incomplete)
         return [
             click.CompletionItem(s.key)
-            for s in siibra.spaces 
+            for s in siibra.spaces
             if s.key.startswith(incomplete)
-            ]
+        ]
+
 
 class ParcellationName(click.ParamType):
     name = "parcellation"
+
     def shell_complete(self, ctx, param, incomplete):
         return [
             click.CompletionItem(s.key)
-            for s in siibra.parcellations 
+            for s in siibra.parcellations
             if s.key.startswith(incomplete)
-            ]
+        ]
 
 
 # ---- Main command
@@ -87,7 +91,6 @@ def get(ctx, outfile):
 @click.pass_context
 def map(ctx, parcellation, space):
     """Retrieve a parcellation map in the given space"""
-
     import siibra as siibra
 
     atlas = siibra.atlases[ctx.obj["species"]]
@@ -186,11 +189,11 @@ def find(ctx):
     default=None,
 )
 @click.option(
-    "--tree/--no-tree",
+    "--showtree/--no-tree",
     default=False,
 )
 @click.pass_context
-def region(ctx, region, parcellation, tree):
+def region(ctx, region: str, parcellation: str = None, showtree: bool = False):
     """Find brain regions by name"""
     import siibra
 
@@ -203,13 +206,13 @@ def region(ctx, region, parcellation, tree):
     else:
         parcobj = atlas.get_parcellation(parcellation)
         click.echo(f"Searching for region '{regionspec}' in {parcobj.name}.")
-        matches = parcobj.find_regions(regionspec)
+        matches = parcobj.find(regionspec)
 
     if len(matches) == 0:
         click.echo(f"No region found using the specification {regionspec}.")
         exit(1)
     for i, m in enumerate(matches):
-        txt = m.__repr__() if tree else m.name
+        txt = m.tree2str() if showtree else m.name
         if parcellation is None:
             click.echo(f"{i:5} | {m.parcellation.name:30.30} | {txt}")
         else:
@@ -316,7 +319,7 @@ def coordinate(ctx, coordinate, space, parcellation, labelled, sigma_mm):
     atlas = siibra.atlases[ctx.obj["species"]]
     siibra.logger.info(f"Using atlas '{atlas.name}'.")
     parcobj = atlas.get_parcellation(parcellation)
-    maptype = siibra.MapType.LABELLED if labelled else siibra.MapType.CONTINUOUS
+    maptype = siibra.MapType.LABELLED if labelled else siibra.MapType.STATISTICAL
     requested_space = atlas.get_space(space)
     location = siibra.Point(coordinate, space=requested_space)
 
@@ -347,5 +350,3 @@ def coordinate(ctx, coordinate, space, parcellation, labelled, sigma_mm):
             click.echo(f"{region.name:40.40} {values}")
         else:
             click.echo(region.name)
-
-

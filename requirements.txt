@@ -1,4 +1,4 @@
-siibra>=0.3a16
+siibra>=1.0a04
 click>=8.0
 click_plugins>=1.0
 simple-term-menu>=1.4

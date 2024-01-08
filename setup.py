@@ -41,7 +41,7 @@ setup(
     """,
     python_requires=">=3.7",
     install_requires=[
-        "siibra>=0.3a16",
+        "siibra>=1.0a04",
         "click>=8.0",
         "click-plugins>=1.0",
         "simple-term-menu>=1.4",
